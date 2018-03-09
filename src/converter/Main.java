@@ -6,7 +6,11 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-
+/**
+ * Class that launching the UI of program
+ * @author Pasut Kittiprapas
+ *
+ */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
@@ -16,6 +20,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.sizeToScene();
 			primaryStage.show();
+			primaryStage.setTitle("UnitConverter");
 		} catch(Exception e) {
 			System.out.println("Exception creating scene: "+e.getMessage());
 		}

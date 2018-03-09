@@ -1,5 +1,10 @@
 package converter;
 
+/**
+ * The class that contain the units and value that use in converter.
+ * @author Pasut Kittiprapas
+ *
+ */
 public enum Length {
 
 	METER(1.00000),
