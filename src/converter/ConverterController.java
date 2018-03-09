@@ -34,7 +34,7 @@ public class ConverterController {
 	public void handleConvert(ActionEvent event) {
 		double first = 0;
 		double second = 0;
-		tf1.setStyle("-fx-text-inner-color: black;");
+		settingColor(tf1,"black");
 		if (tf1.getText().isEmpty()) {
 			first = 0;
 		} else {
@@ -74,7 +74,8 @@ public class ConverterController {
 	public void handleClear(ActionEvent event) {
 		tf1.clear();
 		tf2.clear();
-		tf1.setStyle("-fx-text-inner-color: black;");
+		settingColor(tf1,"black");
+		settingColor(tf2,"black");
 	}
 
 	@FXML
@@ -93,8 +94,12 @@ public class ConverterController {
 
 	public void settingTextField(TextField tf) {
 		tf.setText("Invalid number");
-		tf.setStyle("-fx-text-inner-color: red;");
+		settingColor(tf,"red");
 		tf.disableProperty();
+	}
+	
+	public void settingColor(TextField tf , String color){
+		tf.setStyle(String.format("-fx-text-inner-color: %s;",color));
 	}
 
 }
