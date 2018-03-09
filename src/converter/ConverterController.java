@@ -26,6 +26,7 @@ public class ConverterController {
 	private ComboBox<Length> cb1;
 	@FXML
 	private ComboBox<Length> cb2;
+	private final String BLACK = "black";
 
 	/**
 	 * Handle the event when user click the button convert. It can convert 1
@@ -35,10 +36,10 @@ public class ConverterController {
 	 * @param event
 	 */
 	public void handleConvert(ActionEvent event) {
+		
 		double first = 0;
 		double second = 0;
-		settingColor(tf1, "black");
-		settingColor(tf2, "black");
+		setAllTextFieldColor(BLACK);
 		try {
 			if (tf1.getText().isEmpty()) {
 				first = 0;
@@ -73,8 +74,10 @@ public class ConverterController {
 			tf2.setText(calSecondTf);
 		} else if (second != 0 && first != 0) {
 			if (tf1.isFocused()) {
+				setAllTextFieldColor(BLACK);
 				tf2.setText(calSecondTf);
 			} else {
+				setAllTextFieldColor(BLACK);
 				tf1.setText(calFirstTf);
 			}
 		}
@@ -89,8 +92,7 @@ public class ConverterController {
 	public void handleClear(ActionEvent event) {
 		tf1.clear();
 		tf2.clear();
-		settingColor(tf1, "black");
-		settingColor(tf2, "black");
+		setAllTextFieldColor(BLACK);
 	}
 
 	/**
@@ -131,6 +133,14 @@ public class ConverterController {
 	 */
 	public void settingColor(TextField tf, String color) {
 		tf.setStyle(String.format("-fx-text-inner-color: %s;", color));
+	}
+	
+	/**
+	 * Set the color of all text field.
+	 */
+	public void setAllTextFieldColor(String color){
+		settingColor(tf1, color);
+		settingColor(tf2, color);
 	}
 
 }
