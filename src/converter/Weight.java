@@ -16,6 +16,11 @@ public enum Weight implements Units {
 	private final double value;
 	private final String name;
 
+	/**
+	 * Initialize the name and value of Weight.
+	 * @param name
+	 * @param value
+	 */
 	private Weight(String name, double value) {
 		this.name = name;
 		this.value = value;

@@ -85,7 +85,7 @@ public class ConverterController {
 		Units unit1 = cb1.getValue();
 		// Get value of the unit in the second combo box.
 		Units unit2 = cb2.getValue();
-		
+
 		String calFirstTf = cb1.getSelectionModel().getSelectedItem().convert(unit2, unit1, second);
 		String calSecondTf = cb2.getSelectionModel().getSelectedItem().convert(unit1, unit2, first);
 
@@ -97,7 +97,7 @@ public class ConverterController {
 			if (tf1.isFocused() || convert.isFocused()) {
 				setAllTextFieldColor(BLACK);
 				tf2.setText(calSecondTf);
-			} else if(tf2.isFocused() || convert.isFocused()){
+			} else if (tf2.isFocused() || convert.isFocused()) {
 				setAllTextFieldColor(BLACK);
 				tf1.setText(calFirstTf);
 			}
@@ -119,17 +119,18 @@ public class ConverterController {
 	/**
 	 * JavaFX calls the initialize() method of your controller when it creates
 	 * the UI form, after the components have been created and @FXML annotated
-	 * attributes have been set. It add the element the Length to the combobox.
+	 * attributes have been set. It add the element from the menubar to the
+	 * combobox, depend on which unit types that user choose.
 	 *
 	 */
 	@FXML
 	public void initialize() {
-		
+
 		Length[] len = Length.values();
 		Temperature[] temp = Temperature.values();
 		Currency[] cur = Currency.values();
 		Weight[] wei = Weight.values();
-		
+
 		if (cb1 != null) {
 			cb1.getItems().clear();
 			cb1.getItems().addAll(len);
@@ -140,7 +141,7 @@ public class ConverterController {
 			cb2.getItems().addAll(len);
 			cb2.getSelectionModel().select(1);
 		}
-		
+
 		weight.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -159,7 +160,7 @@ public class ConverterController {
 
 			}
 		});
-		
+
 		currency.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -178,7 +179,7 @@ public class ConverterController {
 
 			}
 		});
-		
+
 		temperature.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -196,7 +197,7 @@ public class ConverterController {
 
 			}
 		});
-		
+
 		length.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -215,14 +216,14 @@ public class ConverterController {
 
 			}
 		});
-		
+
 		exit.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				System.exit(0);
 			}
-			
+
 		});
 	}
 

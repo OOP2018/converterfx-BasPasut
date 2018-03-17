@@ -9,50 +9,74 @@ package converter;
  */
 public enum Temperature implements Units {
 
-	CELCIUS("Celcius", 0),
-	FAHRENHEIT("Fahrenheit", 32.00),
-	KELVIN("Kelvin", 273.15);
+	CELCIUS("Celcius", 0), FAHRENHEIT("Fahrenheit", 32.00), KELVIN("Kelvin", 273.15);
 
 	private final String name;
 	private final double value;
 
+	/**
+	 * Initialize the name and value of Temperature.
+	 * @param name
+	 * @param value
+	 */
 	private Temperature(String name, double value) {
 		this.name = name;
 		this.value = value;
 	}
 
-	public String CelciusToOther(Units u,double c) {
-		if(u.toString().equalsIgnoreCase("Fahrenheit")){
-			return String.format("%.5g", (c*9/5)+32);
-		}
-		else if(u.toString().equalsIgnoreCase("Kelvin")){
-			return String.format("%.5g", c+273);
-		}
-		else{
+	/**
+	 * Compute celcius unit into another temperature units.
+	 * 
+	 * @param u
+	 *            the unit that want to convert celcius to.
+	 * @param c
+	 *            the number that user input to convert.
+	 * @return the number after convert celcius to another unit.
+	 */
+	public String CelciusToOther(Units u, double c) {
+		if (u.toString().equalsIgnoreCase("Fahrenheit")) {
+			return String.format("%.5g", (c * 9 / 5) + 32);
+		} else if (u.toString().equalsIgnoreCase("Kelvin")) {
+			return String.format("%.5g", c + 273);
+		} else {
 			return String.format("%.5g", c);
 		}
 	}
-	
-	public String FahrenheitToOther(Units u,double f) {
-		if(u.toString().equalsIgnoreCase("Celcius")){
-			return String.format("%.5g", (f-32)*5/9);
-		}
-		else if(u.toString().equalsIgnoreCase("Kelvin")){
-			return String.format("%.5g", ((f-32)*5/9)+273);
-		}
-		else{
+
+	/**
+	 * Compute fahrenheit unit into another temperature units.
+	 * 
+	 * @param u
+	 *            the unit that want to convert fahrenheit to.
+	 * @param f
+	 *            the number that user input to convert.
+	 * @return the number after convert fahrenheit to another unit.
+	 */
+	public String FahrenheitToOther(Units u, double f) {
+		if (u.toString().equalsIgnoreCase("Celcius")) {
+			return String.format("%.5g", (f - 32) * 5 / 9);
+		} else if (u.toString().equalsIgnoreCase("Kelvin")) {
+			return String.format("%.5g", ((f - 32) * 5 / 9) + 273);
+		} else {
 			return String.format("%.5g", f);
 		}
 	}
-	
-	public String KelvinToOther(Units u,double k) {
-		if(u.toString().equalsIgnoreCase("Celcius")){
-			return String.format("%.5g", k-273);
-		}
-		else if(u.toString().equalsIgnoreCase("Fahrenheit")){
-			return String.format("%.5g", (9*(k-273)/5)+32);
-		}
-		else{
+
+	/**
+	 * Compute kelvin unit into another temperature units.
+	 * 
+	 * @param u
+	 *            the unit that want to convert kelvin to.
+	 * @param k
+	 *            the number that user input to convert.
+	 * @return the number after convert kelvin to another unit.
+	 */
+	public String KelvinToOther(Units u, double k) {
+		if (u.toString().equalsIgnoreCase("Celcius")) {
+			return String.format("%.5g", k - 273);
+		} else if (u.toString().equalsIgnoreCase("Fahrenheit")) {
+			return String.format("%.5g", (9 * (k - 273) / 5) + 32);
+		} else {
 			return String.format("%.5g", k);
 		}
 	}
@@ -70,16 +94,13 @@ public enum Temperature implements Units {
 	 */
 	@Override
 	public String convert(Units other1, Units other2, double input) {
-		if(other1.toString().equalsIgnoreCase("Celcius")){
+		if (other1.toString().equalsIgnoreCase("Celcius")) {
 			return CelciusToOther(other2, input);
-		}
-		else if (other1.toString().equalsIgnoreCase("Fahrenheit")){
+		} else if (other1.toString().equalsIgnoreCase("Fahrenheit")) {
 			return FahrenheitToOther(other2, input);
-		}
-		else if (other1.toString().equalsIgnoreCase("Kelvin")){
+		} else if (other1.toString().equalsIgnoreCase("Kelvin")) {
 			return KelvinToOther(other2, input);
-		}
-		else{
+		} else {
 			return "0";
 		}
 

@@ -18,6 +18,11 @@ public enum Length implements Units{
 	private final double value;
 	private final String name;
 	
+	/**
+	 * Initialize the name and value of Length.
+	 * @param name
+	 * @param value
+	 */
 	private Length(String name,double value){
 		this.value = value;
 		this.name = name;

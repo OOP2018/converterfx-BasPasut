@@ -1,5 +1,10 @@
 package converter;
 
+/**
+ * The class that contain the units and value of the Currency that use in converter.
+ * @author BasPasut
+ *
+ */
 public enum Currency implements Units{
 	
 	BAHT("Baht",1.00000),
@@ -12,6 +17,11 @@ public enum Currency implements Units{
 	private final double value;
 	private final String name;
 	
+	/**
+	 * Initialize the name and value of Currency.
+	 * @param name
+	 * @param value
+	 */
 	private Currency(String name,double value){
 		this.value = value;
 		this.name = name;
