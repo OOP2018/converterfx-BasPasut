@@ -4,4 +4,4 @@
 
 ###### UI example below :
 
-![GUI](UI.jpg)
+![GUI](ui/UI.jpg)
