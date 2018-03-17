@@ -1,30 +1,24 @@
 package converter;
 
-/**
- * The class that contain the units and value of the Length that use in converter.
- * @author Pasut Kittiprapas
- *
- */
-public enum Length implements Units{
-
-	METER("Meter",1.00000),
-	CENTIMETER("Centimeter",0.0100),
-	KILOMETER("Kilometer",1000.0),
-	MILE("Mile",1609.344),
-	FOOT("Foot",0.30480),
-	WA("Wa",2.00000),
-	AU("Astronomical Unit",149597870700.0);
+public enum Currency implements Units{
+	
+	BAHT("Baht",1.00000),
+	DOLLAR("Dollar",31.21),
+	YEN("Yen", 0.29),
+	YUAN("Yuan",4.93),
+	EURO("Euro",38.41);
+	
 	
 	private final double value;
 	private final String name;
 	
-	private Length(String name,double value){
+	private Currency(String name,double value){
 		this.value = value;
 		this.name = name;
 	}
-	
+
 	/**
-	 * Get the value of the unit in length.
+	 * Get the value of the unit in Currency.
 	 */
 	public double getValue(){
 		return this.value;
@@ -41,7 +35,7 @@ public enum Length implements Units{
 	}
 	
 	/**
-	 * Get the unit name of the length.
+	 * Get the unit name of the Currency.
 	 */
 	@Override
 	public String toString(){

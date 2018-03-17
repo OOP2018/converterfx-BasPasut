@@ -1,9 +1,12 @@
 package converter;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 /**
@@ -23,9 +26,22 @@ public class ConverterController {
 	@FXML
 	Button clear;
 	@FXML
-	private ComboBox<Length> cb1;
+	private ComboBox<Units> cb1;
 	@FXML
-	private ComboBox<Length> cb2;
+	private ComboBox<Units> cb2;
+	@FXML
+	private Menu menu;
+	@FXML
+	private MenuItem length;
+	@FXML
+	private MenuItem weight;
+	@FXML
+	private MenuItem temperature;
+	@FXML
+	private MenuItem currency;
+	@FXML
+	private MenuItem exit;
+
 	private final String BLACK = "black";
 
 	/**
@@ -36,15 +52,18 @@ public class ConverterController {
 	 * @param event
 	 */
 	public void handleConvert(ActionEvent event) {
-		
+		boolean checkTF1 = true;
+		boolean checkTF2 = true;
 		double first = 0;
 		double second = 0;
 		setAllTextFieldColor(BLACK);
 		try {
 			if (tf1.getText().isEmpty()) {
 				first = 0;
+				checkTF1 = true;
 			} else {
 				first = Double.parseDouble(tf1.getText().trim());
+				checkTF1 = false;
 			}
 		} catch (Exception e) {
 			settingTextField(tf1);
@@ -52,31 +71,33 @@ public class ConverterController {
 
 		if (tf2.getText().isEmpty()) {
 			second = 0;
+			checkTF2 = true;
 		} else {
 			try {
 				second = Double.parseDouble(tf2.getText().trim());
+				checkTF2 = false;
 			} catch (Exception e) {
 				settingTextField(tf2);
 			}
 		}
 
 		// Get value of the unit in the first combo box.
-		double unit1 = cb1.getValue().getValue();
+		Units unit1 = cb1.getValue();
 		// Get value of the unit in the second combo box.
-		double unit2 = cb2.getValue().getValue();
+		Units unit2 = cb2.getValue();
 		
-		String calFirstTf = String.format("%.4g", (second * unit2) / unit1);
-		String calSecondTf = String.format("%.4g", (first * unit1) / unit2);
+		String calFirstTf = cb1.getSelectionModel().getSelectedItem().convert(unit2, unit1, second);
+		String calSecondTf = cb2.getSelectionModel().getSelectedItem().convert(unit1, unit2, first);
 
-		if (first == 0 && second != 0) {
+		if (checkTF1 && !checkTF2) {
 			tf1.setText(calFirstTf);
-		} else if (second == 0 && first != 0) {
+		} else if (checkTF2 && !checkTF1) {
 			tf2.setText(calSecondTf);
-		} else if (second != 0 && first != 0) {
-			if (tf1.isFocused()) {
+		} else if (!checkTF1 && !checkTF2) {
+			if (tf1.isFocused() || convert.isFocused()) {
 				setAllTextFieldColor(BLACK);
 				tf2.setText(calSecondTf);
-			} else {
+			} else if(tf2.isFocused() || convert.isFocused()){
 				setAllTextFieldColor(BLACK);
 				tf1.setText(calFirstTf);
 			}
@@ -103,16 +124,106 @@ public class ConverterController {
 	 */
 	@FXML
 	public void initialize() {
+		
+		Length[] len = Length.values();
+		Temperature[] temp = Temperature.values();
+		Currency[] cur = Currency.values();
+		Weight[] wei = Weight.values();
+		
 		if (cb1 != null) {
-			cb1.getItems().addAll(Length.values());
+			cb1.getItems().clear();
+			cb1.getItems().addAll(len);
 			cb1.getSelectionModel().select(0);
 		}
-
 		if (cb2 != null) {
-			cb2.getItems().addAll(Length.values());
+			cb2.getItems().clear();
+			cb2.getItems().addAll(len);
 			cb2.getSelectionModel().select(1);
 		}
+		
+		weight.setOnAction(new EventHandler<ActionEvent>() {
 
+			@Override
+			public void handle(ActionEvent event) {
+				handleClear(event);
+				if (cb1 != null) {
+					cb1.getItems().clear();
+					cb1.getItems().addAll(wei);
+					cb1.getSelectionModel().select(0);
+				}
+				if (cb2 != null) {
+					cb2.getItems().clear();
+					cb2.getItems().addAll(wei);
+					cb2.getSelectionModel().select(1);
+				}
+
+			}
+		});
+		
+		currency.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				handleClear(event);
+				if (cb1 != null) {
+					cb1.getItems().clear();
+					cb1.getItems().addAll(cur);
+					cb1.getSelectionModel().select(0);
+				}
+				if (cb2 != null) {
+					cb2.getItems().clear();
+					cb2.getItems().addAll(cur);
+					cb2.getSelectionModel().select(1);
+				}
+
+			}
+		});
+		
+		temperature.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				handleClear(event);
+				if (cb1 != null) {
+					cb1.getItems().clear();
+					cb1.getItems().addAll(temp);
+					cb1.getSelectionModel().select(0);
+				}
+				if (cb2 != null) {
+					cb2.getItems().clear();
+					cb2.getItems().addAll(temp);
+					cb2.getSelectionModel().select(1);
+				}
+
+			}
+		});
+		
+		length.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				handleClear(event);
+				if (cb1 != null) {
+					cb1.getItems().clear();
+					cb1.getItems().addAll(len);
+					cb1.getSelectionModel().select(0);
+				}
+				if (cb2 != null) {
+					cb2.getItems().clear();
+					cb2.getItems().addAll(len);
+					cb2.getSelectionModel().select(1);
+				}
+
+			}
+		});
+		
+		exit.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				System.exit(0);
+			}
+			
+		});
 	}
 
 	/**
@@ -134,11 +245,11 @@ public class ConverterController {
 	public void settingColor(TextField tf, String color) {
 		tf.setStyle(String.format("-fx-text-inner-color: %s;", color));
 	}
-	
+
 	/**
 	 * Set the color of all text field.
 	 */
-	public void setAllTextFieldColor(String color){
+	public void setAllTextFieldColor(String color) {
 		settingColor(tf1, color);
 		settingColor(tf2, color);
 	}
